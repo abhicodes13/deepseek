@@ -1,6 +1,8 @@
 "use client";
 
 import { assets } from "@/assets/assets";
+import Message from "@/components/Message";
+import PromptBox from "@/components/PromptBox";
 import SideBar from "@/components/SideBar";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,7 +10,8 @@ import { useState } from "react";
 export default function Home() {
   const [expand, setExpand] = useState(false);
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div>
       <div className="flex h-screen">
@@ -36,8 +39,11 @@ export default function Home() {
               <p className="text-sm mt-2">How can I help you today ?</p>
             </>
           ) : (
-            <div></div>
+            <div>
+              <Message role="user" content="what is next js" />
+            </div>
           )}
+          <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
           <p className="text-xs absolute bottom-1 text-gray-500">
             AI generated for reference only
           </p>
