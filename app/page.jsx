@@ -1,5 +1,5 @@
 "use client";
-
+//bg-[#292a2d
 import { assets } from "@/assets/assets";
 import Message from "@/components/Message";
 import PromptBox from "@/components/PromptBox";
@@ -35,7 +35,9 @@ export default function Home() {
     <div>
       <div className="flex h-screen">
         <SideBar expand={expand} setExpand={setExpand} />
-        <div className="flex-1 flex flex-col justify-center items-center bg-[#292a2d] px-4 pb-8 text-white relative">
+
+        <div className="flex-1 flex flex-col justify-center items-center bg-[#000000f2] px-4 pb-8 text-white relative">
+          <div className="absolute w-120 h-70  bg-[#4d6afe]  rounded-[50%] -top-10 md:hidden md:w-150  blur-[250px] mask-t-to-20%"></div>
           <div className="md:hidden absolute px-4 top-6 flex justify-between items-center w-full">
             <Image
               className="rotate-180"
@@ -53,9 +55,13 @@ export default function Home() {
             <>
               <div className="flex items-center gap-3">
                 <Image src={assets.logo_icon} alt="" className="h-16 "></Image>
-                <p className="text-2xl font-medium">Hi, I'm Deepseek</p>
+                <p className="text-2xl font-medium z-10 text-shadow-lg/100 ">
+                  Hi, I'm Deepseek
+                </p>
               </div>
-              <p className="text-sm mt-2">How can I help you today ?</p>
+              <p className="text-sm mt-2 z-10 text-shadow-lg/100">
+                How can I help you today ?
+              </p>
             </>
           ) : (
             <div
@@ -86,6 +92,7 @@ export default function Home() {
           )}
 
           <PromptBox isLoading={isLoading} setIsLoading={setIsLoading} />
+
           <p className="text-xs absolute bottom-1 text-gray-500">
             AI generated for reference only
           </p>

@@ -24,7 +24,7 @@ const Message = ({ role, content }) => {
       >
         <div
           className={`group relative flex max-w-2xl py-3 rounded-xl ${
-            role === "user" ? "bg-[#414158] px-5" : "gap-3"
+            role === "user" ? "bg-[#4140437b] px-5" : "gap-3"
           }`}
         >
           <div

@@ -105,13 +105,13 @@ const PromptBox = ({ setIsLoading, isLoading }) => {
   return (
     <form
       onSubmit={sendPrompt}
-      className={`w-full ${
+      className={`w-full z-10 ${
         selectedChat?.messages.length > 0 ? "max-w-3xl" : "max-w-2xl"
-      } bg-[#404045] rounded-3xl mt-4 p-4 transition-all`}
+      }  bg-[#19191a] rounded-3xl mt-4 p-4 transition-all `}
     >
       <textarea
         onKeyDown={handleKeyDown}
-        className="outline-none overflow-hidden w-full resize-none break-words bg-transparent"
+        className="outline-none overflow-hidden w-full resize-none break-words z-10 bg-transparent"
         rows={2}
         placeholder="Message Deepseek"
         required
