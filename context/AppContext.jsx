@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth, useUser } from "@clerk/nextjs";
+import { useAuth, useUser, useClerk } from "@clerk/nextjs";
 import axios from "axios";
 
 import { createContext, useContext, useEffect, useState } from "react";
@@ -13,6 +13,7 @@ export const useAppContext = () => {
 };
 
 export const AppContextProvider = ({ children }) => {
+  const { openSignIn } = useClerk();
   const { user, isSignedIn } = useUser();
   const { getToken } = useAuth();
 
@@ -21,7 +22,9 @@ export const AppContextProvider = ({ children }) => {
 
   const createNewChat = async () => {
     try {
-      if (!user) return toast.error("Please login to use this feature");
+      if (!user) {
+        openSignIn();
+      }
       const token = await getToken();
       await axios.post(
         "/api/chat/create",
