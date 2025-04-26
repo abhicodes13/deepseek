@@ -14,7 +14,7 @@ export default function Home() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { selectedChat } = useAppContext();
+  const { selectedChat, createNewChat } = useAppContext();
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -46,6 +46,7 @@ export default function Home() {
               onClick={() => setExpand(!expand)}
             ></Image>
             <Image
+              onClick={() => createNewChat()}
               className="opacity-70"
               src={assets.chat_icon}
               alt="chat"
