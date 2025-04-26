@@ -24,6 +24,7 @@ export const AppContextProvider = ({ children }) => {
     try {
       if (!user) {
         openSignIn();
+        return;
       }
       const token = await getToken();
       await axios.post(
