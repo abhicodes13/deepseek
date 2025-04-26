@@ -13,7 +13,7 @@ export const useAppContext = () => {
 };
 
 export const AppContextProvider = ({ children }) => {
-  const { user } = useUser();
+  const { user, isSignedIn } = useUser();
   const { getToken } = useAuth();
 
   const [chats, setChats] = useState([]);
@@ -83,6 +83,7 @@ export const AppContextProvider = ({ children }) => {
     setSelectedChat,
     createNewChat,
     fetchUserChats,
+    isSignedIn,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

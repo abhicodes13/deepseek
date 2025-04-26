@@ -6,9 +6,10 @@ import { useAppContext } from "@/context/AppContext";
 import ChatLabel from "./ChatLabel";
 
 const SideBar = ({ expand, setExpand }) => {
-  const { openSignIn } = useClerk();
+  const { openSignIn, signOut } = useClerk();
   const { user, chats, createNewChat } = useAppContext();
   const [openMenu, setOpenMenu] = useState({ id: 0, open: false });
+
   return (
     <div
       className={`flex flex-col justify-between bg-[#212327] pt-7 transition-all z-50 max-md:not-last:absolute max-md:h-screen ${
@@ -136,8 +137,18 @@ const SideBar = ({ expand, setExpand }) => {
             <Image src={assets.profile_icon} alt="" className="w-7" />
           )}
 
-          {expand && <span>My Profile</span>}
+          {expand && <p>{user ? user.firstName : "Sign In"}</p>}
         </div>
+        {expand && (
+          <button
+            onClick={() => signOut({ redirectUrl: "/" })}
+            className={`flex items-center  ${
+              expand ? "hover:bg-white/10 rounded-lg " : "justify-center w-full"
+            }gap-3 text-white/60 text-md p-2.5 mt-2 cursor-pointer`}
+          >
+            {user && `Sign Out ${user.firstName}`}
+          </button>
+        )}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Message from "@/components/Message";
 import PromptBox from "@/components/PromptBox";
 import SideBar from "@/components/SideBar";
 import { useAppContext } from "@/context/AppContext";
+
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 
