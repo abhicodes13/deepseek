@@ -21,7 +21,7 @@ export const AppContextProvider = ({ children }) => {
 
   const createNewChat = async () => {
     try {
-      if (!user) return null;
+      if (!user) return toast.error("Please login to use this feature");
       const token = await getToken();
       await axios.post(
         "/api/chat/create",

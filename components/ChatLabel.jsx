@@ -6,6 +6,8 @@ import React from "react";
 import toast from "react-hot-toast";
 
 const ChatLabel = ({ openMenu, setOpenMenu, id, name }) => {
+  const { user } = useAppContext();
+  if (!user) return null;
   const { fetchUserChats, chats, setSelectedChat } = useAppContext();
 
   const selectChat = () => {
