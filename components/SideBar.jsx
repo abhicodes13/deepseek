@@ -134,7 +134,11 @@ const SideBar = ({ expand, setExpand }) => {
           {user ? (
             <UserButton />
           ) : (
-            <Image src={assets.profile_icon} alt="" className="w-7" />
+            <Image
+              src={assets.profile_icon}
+              alt=""
+              className="w-9 hover:opacity-70 "
+            />
           )}
 
           {expand && <p>{user ? user.firstName : "Sign In"}</p>}

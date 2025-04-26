@@ -24,10 +24,10 @@ export default function Home() {
   }, [selectedChat]);
   useEffect(() => {
     if (containerRef.current) {
-      containerRef.current.scrollTo = {
+      containerRef.current.scrollTo({
         top: containerRef.current.scrollHeight,
         behavior: "smooth",
-      };
+      });
     }
   }, [messages]);
 
