@@ -37,7 +37,7 @@ export default function Home() {
         <SideBar expand={expand} setExpand={setExpand} />
 
         <div className="flex-1 flex flex-col justify-center items-center bg-[#000000f2] px-4 pb-8 text-white relative">
-          <div className="absolute w-120 h-70  bg-[#4d6afe]  rounded-[50%] -top-10 md:hidden md:w-150  blur-[250px] mask-t-to-20%"></div>
+          <div className="absolute w-120 h-70  bg-[#4d6afe]  rounded-[50%] top-10 md:hidden  blur-[250px] mask-t-to-20%"></div>
           <div className="md:hidden absolute px-4 top-6 flex justify-between items-center w-full">
             <Image
               className="rotate-180"
