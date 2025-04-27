@@ -105,7 +105,7 @@ const PromptBox = ({ setIsLoading, isLoading }) => {
   return (
     <form
       onSubmit={sendPrompt}
-      className={`w-full z-10 ${
+      className={`w-full z-10 border-b-2 border-[#4d6afe] ${
         selectedChat?.messages.length > 0 ? "max-w-3xl" : "max-w-2xl"
       }  bg-[#19191a] rounded-3xl mt-4 p-4 transition-all `}
     >
@@ -125,12 +125,7 @@ const PromptBox = ({ setIsLoading, isLoading }) => {
             DeepThink (R1)
           </p>
           <p className="flex item-center gap-2 text-xs border-gray border-gray-500/30 px-2 py-1 rounded-full cursor-pointer hover:bg-gray-500/20 transition">
-            <Image
-              className="h-5"
-              src={assets.search_icon}
-              alt=""
-              onTouchEnd={sendPrompt}
-            />
+            <Image className="h-5" src={assets.search_icon} alt="" />
             Search
           </p>
         </div>
