@@ -1,6 +1,7 @@
 "use client";
 //bg-[#292a2d
 import { assets } from "@/assets/assets";
+import Link from "next/link";
 
 import SideBar from "@/components/SideBar";
 import { useAppContext } from "@/context/AppContext";
@@ -10,10 +11,8 @@ import { useState, useRef } from "react";
 
 export default function Home() {
   const [expand, setExpand] = useState(false);
-  const [messages, setMessages] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const { selectedChat, createNewChat } = useAppContext();
+  const { createNewChat } = useAppContext();
   const containerRef = useRef(null);
 
   return (
@@ -38,7 +37,16 @@ export default function Home() {
             ></Image>
           </div>
           <div className="flex flex-col m-2 p-10 md:p-40 overflow-y-scroll items-center gap-3">
-            <div className="text-3xl tracking-tight ">How I built this</div>
+            <div className="text-3xl tracking-tight flex flex-col items-center ">
+              How I built this{" "}
+              <Link
+                href="/"
+                className=" block text-sm bg-primary tracking-tighter px-2 py-1 mt-2 hover:opacity-70 cursor-pointer rounded-sm"
+              >
+                {" "}
+                Go to Chat
+              </Link>
+            </div>
             <div className="text-md text-center -tracking-tight mt-10">
               {" "}
               By combining modern full-stack tools to create a secure and
