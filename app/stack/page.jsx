@@ -36,18 +36,18 @@ export default function Home() {
               alt="chat"
             ></Image>
           </div>
-          <div className="flex flex-col m-2 p-10 md:p-40 overflow-y-scroll items-center gap-3">
+          <div className="flex flex-col m-2 p-9 md:p-40 overflow-y-scroll items-center gap-3">
             <div className="text-3xl tracking-tight flex flex-col items-center ">
               How I built this{" "}
               <Link
                 href="/"
-                className=" block text-sm bg-primary tracking-tighter px-2 py-1 mt-2 hover:opacity-70 cursor-pointer rounded-sm"
+                className=" block text-sm bg-primary tracking-tighter px-2 py-1 mt-10 hover:opacity-70 cursor-pointer rounded-sm"
               >
                 {" "}
                 Go to Chat
               </Link>
             </div>
-            <div className="text-md text-center -tracking-tight mt-10">
+            <div className="text-sm text-center -tracking-tight mt-5">
               {" "}
               By combining modern full-stack tools to create a secure and
               scalable app. The frontend was developed using{" "}
@@ -67,13 +67,14 @@ export default function Home() {
               which handled sign-up, login, and user sessions seamlessly.{" "}
               <span className="font-extrabold"> On the backend </span> , I set
               up <span className="bg-[#6C47FF] font-semibold  px-1">Clerk</span>{" "}
-              webhooks to listen for important authentication events (such as
-              new user creation or user updates). These webhooks allowed my
-              backend to securely react to user changes in real-time, such as
-              initializing user data or logging analytics events. The chat
-              interface itself closely mimicked the original Deepseek, with a
-              clean, minimalist design. Messages were handled through API routes
-              in{" "}
+              webhooks to listen for{" "}
+              <span className="font-extrabold">important authentication</span>{" "}
+              events (such as new user creation or user updates). These webhooks
+              allowed my backend to securely react to user changes in real-time,
+              such as initializing user data or logging analytics events. The
+              chat interface itself closely mimicked the original Deepseek, with
+              a clean, minimalist design. Messages were handled through API
+              routes in{" "}
               <span className="text-black bg-white px-1 font-semibold">
                 Next.JS
               </span>
@@ -83,7 +84,7 @@ export default function Home() {
                 MONGODB
               </span>{" "}
               or interacting with AI models. Overall, the stack combined:{" "}
-              <span className="text-black bg-white px-1 font-semibold">
+              <span className="text-black bg-white  font-semibold">
                 Next.JS
               </span>{" "}
               (frontend framework) React (component-based UI){" "}
