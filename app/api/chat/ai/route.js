@@ -15,7 +15,7 @@ export async function POST(req) {
     const { userId } = getAuth(req);
     const { chatId, prompt } = await req.json();
     if (!userId) {
-      return new Response("Missing required fields", { status: 400 });
+      return new Response("Invalid user", { status: 400 });
     }
 
     await dbConnect();
