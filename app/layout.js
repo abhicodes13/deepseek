@@ -12,7 +12,11 @@ const inter = Inter({
 
 export const metadata = {
   title: "Deepseek - Search Engine",
-  description: "FullStack Web App",
+  description: "FullStack Web App using Next.js and Deepseek API",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({ children }) {
