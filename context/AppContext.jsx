@@ -70,10 +70,18 @@ export const AppContextProvider = ({ children }) => {
       }
     } catch (error) {
       if (error.response?.status === 429) {
-        toast.error("Too many requests. Please try again shortly.");
-        return;
+        // Custom message for rate limit
+        toast.error(
+          "Too many requests. Please wait a few seconds and try again."
+        );
+      } else {
+        // Fallback for other errors
+        toast.error(
+          error?.response?.data?.message ||
+            error.message ||
+            "Something went wrong."
+        );
       }
-      toast.error(error.message);
     }
   };
 
