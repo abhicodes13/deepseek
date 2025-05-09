@@ -13,7 +13,7 @@ const redis = new Redis({
 
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(5, "1m"), // 5 requests per minute
+  limiter: Ratelimit.slidingWindow(1, "1m"), // 5 requests per minute
   analytics: true,
 });
 
@@ -28,12 +28,11 @@ export async function POST(req) {
     }
 
     // Check rate limit before continuing with any logic
-    const { success, reset } = await ratelimit.limit(userId);
+    const { success } = await ratelimit.limit(userId);
     if (!success) {
       return NextResponse.json(
         {
           error: "Too many requests. Please wait before sending more messages.",
-          reset, // Optional: send reset time to UI
         },
         { status: 429 }
       );
