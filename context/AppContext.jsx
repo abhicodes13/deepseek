@@ -38,7 +38,18 @@ export const AppContextProvider = ({ children }) => {
       );
       fetchUserChats();
     } catch (error) {
-      toast.error(error.message);
+      if (error.response?.status === 429) {
+        // Custom message for rate limit
+        const msg = error.response?.data?.error || "Too many requests";
+        toast.error(msg);
+      } else {
+        // Fallback for other errors
+        const fallbackMsg =
+          error.response?.data?.error ||
+          error.message ||
+          "Something went wrong.";
+        toast.error(fallbackMsg);
+      }
     }
   };
 
@@ -69,18 +80,7 @@ export const AppContextProvider = ({ children }) => {
         toast.error(data.message);
       }
     } catch (error) {
-      if (error.response?.status === 429) {
-        // Custom message for rate limit
-        const msg = error.response?.data?.error || "Too many requests";
-        toast.error(msg);
-      } else {
-        // Fallback for other errors
-        const fallbackMsg =
-          error.response?.data?.error ||
-          error.message ||
-          "Something went wrong.";
-        toast.error(fallbackMsg);
-      }
+      toast.error(error.message);
     }
   };
 
