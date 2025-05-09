@@ -51,12 +51,6 @@ export const AppContextProvider = ({ children }) => {
         },
       });
 
-      if (res.status === 429) {
-        const data = await res.json();
-        alert(data.error); // "Too many requests..."
-        return;
-      }
-
       if (data.success) {
         console.log(data.data);
         setChats(data.data);
@@ -72,6 +66,11 @@ export const AppContextProvider = ({ children }) => {
           console.log(data.data[0]);
         }
       } else {
+        if (res.status === 429) {
+          const data = await res.json();
+          alert(data.error); // "Too many requests..."
+          return;
+        }
         toast.error(data.message);
       }
     } catch (error) {
