@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.TOKEN,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
 const ratelimit = new Ratelimit({
   redis,
@@ -21,7 +21,7 @@ export default clerkMiddleware(async (auth, req) => {
 
   const { success } = await ratelimit.limit(ip.toString());
   if (!success) {
-    return NextResponse.json("Too Many Requests");
+    return NextResponse.json({ error: "Too Many Requests" }, { status: 429 });
   }
   if (!isPublicRoute(req)) {
     await auth.protect();
