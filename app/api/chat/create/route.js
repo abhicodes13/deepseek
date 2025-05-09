@@ -2,39 +2,15 @@ import dbConnect from "@/config/db";
 import Chat from "@/models/Chat";
 import { NextResponse } from "next/server";
 import { getAuth } from "@clerk/nextjs/server";
-import { Redis } from "@upstash/redis";
-import { Ratelimit } from "@upstash/ratelimit";
-
-// Setup Upstash Redis & Rate Limiter
-const redis = new Redis({
-  url: process.env.UPSTASH_REDIS_REST_URL,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN,
-});
-
-const ratelimit = new Ratelimit({
-  redis,
-  limiter: Ratelimit.slidingWindow(1, "1m"), // 5 requests per minute
-  analytics: true,
-});
 
 export async function POST(req) {
   try {
+    console.log("post route hit");
     const { userId } = getAuth(req);
     if (!userId) {
       return NextResponse.json(
         { message: "Not authenticated" },
         { status: 401 }
-      );
-    }
-
-    // Check rate limit before continuing with any logic
-    const { success } = await ratelimit.limit(userId);
-    if (!success) {
-      return NextResponse.json(
-        {
-          error: "Too many requests. Please wait before sending more messages.",
-        },
-        { status: 429 }
       );
     }
 

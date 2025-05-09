@@ -95,7 +95,25 @@ const PromptBox = ({ setIsLoading, isLoading }) => {
         setPrompt(promptCopy);
       }
     } catch (error) {
-      toast.error(error.message);
+      let fallbackMsg = "Something went wrong.";
+      if (error.response?.status === 429) {
+        try {
+          const errorData =
+            typeof error.response.data === "string"
+              ? JSON.parse(error.response.data)
+              : error.response.data;
+          fallbackMsg = errorData.error || fallbackMsg;
+        } catch {
+          fallbackMsg = "Too many requests. Please wait a minute.";
+        }
+      } else {
+        fallbackMsg =
+          error.response?.data?.error ||
+          error.message ||
+          "Something went wrong.";
+      }
+
+      toast.error(fallbackMsg);
       setPrompt(promptCopy);
     } finally {
       setIsLoading(false);

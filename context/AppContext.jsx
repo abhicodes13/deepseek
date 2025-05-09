@@ -38,16 +38,7 @@ export const AppContextProvider = ({ children }) => {
       );
       fetchUserChats();
     } catch (error) {
-      if (error.response?.status === 429) {
-        toast.error("Too many requests. Please wait a minute");
-      } else {
-        // Fallback for other errors
-        const fallbackMsg =
-          error.response?.data?.error ||
-          error.message ||
-          "Something went wrong.";
-        toast.error(fallbackMsg);
-      }
+      toast.error(error.message);
     }
   };
 
