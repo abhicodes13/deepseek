@@ -66,13 +66,13 @@ export const AppContextProvider = ({ children }) => {
           console.log(data.data[0]);
         }
       } else {
-        if (res.status === 429) {
-          const data = await res.json();
-          toast.error(data.error); // "Too many requests..."
-          return;
-        }
+        toast.error(data.message);
       }
     } catch (error) {
+      if (error.response?.status === 429) {
+        toast.error("Too many requests. Please try again shortly.");
+        return;
+      }
       toast.error(error.message);
     }
   };
