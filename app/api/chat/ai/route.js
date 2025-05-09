@@ -35,7 +35,7 @@ export async function POST(req) {
     }
 
     // ✅ Rate limit per userId
-    const { success, remaining, reset } = await ratelimit.limit(userId);
+    const { success, reset } = await ratelimit.limit(userId);
 
     if (!success) {
       return NextResponse.json(
