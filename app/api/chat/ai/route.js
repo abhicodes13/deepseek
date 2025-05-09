@@ -1,9 +1,24 @@
 export const maxDuration = 60;
+
 import dbConnect from "@/config/db";
 import Chat from "@/models/Chat";
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { Redis } from "@upstash/redis";
+import { Ratelimit } from "@upstash/ratelimit";
+
+// ✅ Setup Upstash Redis & Rate Limiter
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL!,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+});
+
+const ratelimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.slidingWindow(5, "30s"), // 5 requests per 30 seconds
+  analytics: true,
+});
 
 const openai = new OpenAI({
   baseURL: "https://api.deepseek.com/",
@@ -14,8 +29,22 @@ export async function POST(req) {
   try {
     const { userId } = getAuth(req);
     const { chatId, prompt } = await req.json();
+
     if (!userId) {
       return new Response("Invalid user", { status: 400 });
+    }
+
+    // ✅ Rate limit per userId
+    const { success, remaining, reset } = await ratelimit.limit(userId);
+
+    if (!success) {
+      return NextResponse.json(
+        {
+          error: "Too many requests. Please wait before sending more messages.",
+          reset, // optional: send reset time to UI
+        },
+        { status: 429 }
+      );
     }
 
     await dbConnect();
