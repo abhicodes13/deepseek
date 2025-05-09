@@ -39,9 +39,7 @@ export const AppContextProvider = ({ children }) => {
       fetchUserChats();
     } catch (error) {
       if (error.response?.status === 429) {
-        // Custom message for rate limit
-        const msg = error.response?.data?.error || "Too many requests";
-        toast.error(msg);
+        toast.error("Too many requests. Please wait a minute");
       } else {
         // Fallback for other errors
         const fallbackMsg =

@@ -5,7 +5,7 @@ import { getAuth } from "@clerk/nextjs/server";
 import { Redis } from "@upstash/redis";
 import { Ratelimit } from "@upstash/ratelimit";
 
-// ✅ Setup Upstash Redis & Rate Limiter
+// Setup Upstash Redis & Rate Limiter
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
@@ -13,7 +13,7 @@ const redis = new Redis({
 
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(1, "1m"), // 5 requests per 30 seconds
+  limiter: Ratelimit.slidingWindow(5, "1m"), // 5 requests per minute
   analytics: true,
 });
 
@@ -26,17 +26,20 @@ export async function POST(req) {
         { status: 401 }
       );
     }
-    const { success, reset } = await ratelimit.limit(userId);
 
+    // Check rate limit before continuing with any logic
+    const { success, reset } = await ratelimit.limit(userId);
     if (!success) {
       return NextResponse.json(
         {
           error: "Too many requests. Please wait before sending more messages.",
-          reset, // optional: send reset time to UI
+          reset, // Optional: send reset time to UI
         },
         { status: 429 }
       );
     }
+
+    // Proceed with the chat creation if the rate limit check passes
     const chatData = {
       userId,
       messages: [],
