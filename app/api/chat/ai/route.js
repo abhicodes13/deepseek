@@ -15,7 +15,7 @@ const redis = new Redis({
 
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(3, "1m"), // 5 requests per minute
+  limiter: Ratelimit.slidingWindow(5, "1m"), // 5 requests per minute
   analytics: true,
 });
 
