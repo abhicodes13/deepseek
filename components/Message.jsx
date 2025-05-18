@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import Markdown from "react-markdown";
 import Prism from "prismjs";
 import toast from "react-hot-toast";
-
+import { motion } from "motion/react";
 const Message = ({ role, content }) => {
   useEffect(() => {
     Prism.highlightAll();
@@ -83,9 +83,14 @@ const Message = ({ role, content }) => {
                 alt=""
                 className="h-9 w-9 p-1 border border-white/15 rounded-full"
               />
-              <div className="space-y-4 w-full overflow-scroll">
+              <motion.div
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 3, delay: 0.2 }}
+                className="space-y-4 w-full overflow-scroll"
+              >
                 <Markdown>{content}</Markdown>
-              </div>
+              </motion.div>
             </>
           )}
         </div>

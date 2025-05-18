@@ -55,7 +55,11 @@ export default function Home() {
           {messages.length === 0 ? (
             <>
               <div className="flex items-center gap-3">
-                <Image src={assets.logo_icon} alt="" className="h-16 "></Image>
+                <Image
+                  src={assets.logo_icon}
+                  alt=""
+                  className="h-16 animate-pulse"
+                ></Image>
                 <p className="text-2xl font-medium z-10 text-shadow-lg/100 ">
                   Hi, I'm Deepseek
                 </p>
