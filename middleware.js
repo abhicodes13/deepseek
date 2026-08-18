@@ -17,18 +17,22 @@ const ratelimit = new Ratelimit({
 const isPublicRoute = createRouteMatcher(["/", "/stack"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const ip = req.ip || req.headers.get("x-forwarded-for");
+  const ip = req.ip || req.headers.get("x-forwarded-for") || "unknown";
 
   const { success } = await ratelimit.limit(ip.toString());
+
   if (!success) {
     return NextResponse.json({ error: "Too Many Requests" }, { status: 429 });
   }
+
   if (!isPublicRoute(req)) {
     await auth.protect();
   }
   return NextResponse.next();
 });
 
+console.log("URL exists:", !!process.env.UPSTASH_REDIS_REST_URL);
+console.log("TOKEN exists:", !!process.env.UPSTASH_REDIS_REST_TOKEN);
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
