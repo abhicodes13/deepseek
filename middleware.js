@@ -19,7 +19,12 @@ const isPublicRoute = createRouteMatcher(["/", "/stack"]);
 export default clerkMiddleware(async (auth, req) => {
   const ip = req.ip || req.headers.get("x-forwarded-for") || "unknown";
 
-  const { success } = await ratelimit.limit(ip.toString());
+  try {
+    const result = await redis.ping();
+    console.log("VERCEL REDIS:", result);
+  } catch (error) {
+    console.error("VERCEL REDIS ERROR:", error);
+  }
 
   if (!success) {
     return NextResponse.json({ error: "Too Many Requests" }, { status: 429 });
