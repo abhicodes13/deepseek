@@ -1,10 +1,10 @@
-/* import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware } from "@clerk/nextjs/server";
 import { createRouteMatcher } from "@clerk/nextjs/server";
-import { Redis } from "@upstash/redis";
-import { Ratelimit } from "@upstash/ratelimit";
+// import { Redis } from "@upstash/redis";
+// import { Ratelimit } from "@upstash/ratelimit";
 import { NextResponse } from "next/server";
 
-const redis = new Redis({
+/*const redis = new Redis({
   url: process.env.UPSTASH_REDIS_REST_URL,
   token: process.env.UPSTASH_REDIS_REST_TOKEN,
 });
@@ -12,11 +12,11 @@ const ratelimit = new Ratelimit({
   redis,
   limiter: Ratelimit.slidingWindow(10, "1m"),
   analytics: true,
-});
+}); 
 
 const isPublicRoute = createRouteMatcher(["/", "/stack"]);
 
-export default clerkMiddleware(async (auth, req) => {
+/* export default clerkMiddleware(async (auth, req) => {
   const ip = req.ip || req.headers.get("x-forwarded-for") || "unknown";
 
   try {
@@ -45,12 +45,34 @@ export const config = {
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],
-};*/
-import { NextResponse } from "next/server";
+};
+
 
 export default function middleware(req) {
   return NextResponse.next();
 }
+
+export const config = {
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ],
+};
+*/
+
+import { clerkMiddleware } from "@clerk/nextjs/server";
+import { createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+
+const isPublicRoute = createRouteMatcher(["/", "/stack"]);
+
+export default clerkMiddleware(async (auth, req) => {
+  if (!isPublicRoute(req)) {
+    await auth.protect();
+  }
+
+  return NextResponse.next();
+});
 
 export const config = {
   matcher: [
