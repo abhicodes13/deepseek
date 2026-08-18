@@ -33,7 +33,7 @@ export async function POST(req) {
       return new Response("Invalid user", { status: 400 });
     }
 
-    const { success } = await ratelimit.limit(userId);
+    /*const { success } = await ratelimit.limit(userId);
 
     if (!success) {
       return new Response(
@@ -41,9 +41,9 @@ export async function POST(req) {
           error:
             "Too many requests. Please wait before sending another message.",
         }),
-        { status: 429 }
+        { status: 429 },
       );
-    }
+    }*/
 
     await dbConnect();
 
